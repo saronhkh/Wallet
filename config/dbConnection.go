@@ -3,6 +3,7 @@ package config
 import (
 	models "Wallet/models"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -13,7 +14,9 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	godotenv.Load()
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("faild to open file", err)
+	}
 	dbhost := os.Getenv("MYSQL_HOST")
 	dbuser := os.Getenv("MYSQL_USER")
 	dbpassword := os.Getenv("MYSQL_PASSWORD")
@@ -23,7 +26,7 @@ func Connect() {
 	var db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic("db connect failed")
+		log.Fatal("faild to open file", err)
 	}
 
 	DB = db

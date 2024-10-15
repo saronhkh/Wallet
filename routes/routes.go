@@ -17,7 +17,7 @@ func Setup(app *fiber.App) {
 	jwtMiddleware := jwtware.New(jwtware.Config{
 		SigningKey: []byte(os.Getenv("JWT_SECRET")),
 	})
-
+	// wallet routes
 	protected := app.Group("/wallet")
 	protected.Use(jwtMiddleware)
 	protected.Get("", controllers.WalletDetails)

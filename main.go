@@ -3,6 +3,7 @@ package main
 import (
 	db "Wallet/config"
 	routes "Wallet/routes"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,5 +17,7 @@ func main() {
 	routes.Setup(app)
 
 	//listen on port
-	app.Listen(":3000")
+	if err := app.Listen(":3000"); err != nil {
+		log.Fatal("faild to start server", err)
+	}
 }
